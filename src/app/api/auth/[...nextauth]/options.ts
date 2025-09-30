@@ -23,8 +23,8 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await UserModel.findOne({
             $or: [
-              { email: credentails.identifier },
-              { username: credentails.identifier },
+              { email: credentails.email },
+              { username: credentails.email },
             ],
           });
 
@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
             user.password
           );
           //Inside authorize(), you return a user object if login succeeds:
-          if (!isPasswordCorrect) {
+          if (isPasswordCorrect) {
             return user;
           } else {
             throw new Error("incorrect password");
